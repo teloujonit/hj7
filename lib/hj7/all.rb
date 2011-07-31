@@ -1,0 +1,5 @@
+require "hj7/jammit"
+require "hj7/growl"
+require "hj7/compass"
+require "hj7/archive"
+require "hj7/tagging"
