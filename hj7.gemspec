@@ -20,7 +20,8 @@ Gem::Specification.new do |s|
   s.add_dependency "compass"
   s.add_dependency "jammit"
   s.add_dependency "jekyll-tagging"
-
+  s.add_dependency "jekyll-s3"
+  
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
