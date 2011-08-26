@@ -26,7 +26,7 @@ module HJ7::Jammit
       def assets_for_name
         if CONFIG[@asset_type].include?(@name)
           CONFIG[@asset_type][@name].map do |asset|
-            asset.gsub(/_site\/(css|js)\//, "")
+            asset.gsub(/_site\/assets\/(stylesheets|javascripts)\//, "")
           end
         else
           name_with_ext
@@ -36,7 +36,7 @@ module HJ7::Jammit
 
     class IncludeJsTag < AssetTag
       def initialize(tag_name, name, tokens)
-        @path = "/js"
+        @path = "/assets/javascripts"
         @ext = "js"
         @asset_type = "javascripts"
         super tag_name, name, "js", tokens
@@ -50,7 +50,7 @@ module HJ7::Jammit
 
     class IncludeCssTag < AssetTag
       def initialize(tag_name, name, tokens)
-        @path = "/css"
+        @path = "/assets/stylesheets"
         @ext = "css"
         @asset_type = "stylesheets"
         super tag_name, name, "css", tokens

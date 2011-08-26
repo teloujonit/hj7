@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "growl"
   s.add_dependency "compass"
   s.add_dependency "jammit"
+  s.add_dependency "coffee-script"
   s.add_dependency "jekyll-tagging"
   s.add_dependency "jekyll-s3"
   
