@@ -1,7 +1,8 @@
+require 'jekyll'
 require 'coffee-script'
 
 module HJ7::Coffee
-  class CoffeeConverter < Converter
+  class CoffeeConverter < Jekyll::Converter
     safe true
     priority :normal
 
