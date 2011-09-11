@@ -61,6 +61,5 @@ module HJ7::Jammit
       end
     end
     Liquid::Template.register_tag("include_css", IncludeCssTag)
-
   end
 end

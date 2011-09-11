@@ -1,5 +1,5 @@
-require "jekyll"
-require "jammit"
+require 'jekyll'
+require 'jammit'
 
 module HJ7::Jammit
   class JammitGenerator < Jekyll::Generator
@@ -17,9 +17,9 @@ module Jekyll
 
     def process
       process_without_jammit
-      if Jekyll::ENV == "production"
-        puts "jammit!!"
-        system "jammit -o _site/assets -c _assets.yml"
+      if Jekyll::ENV == 'production'
+        puts 'jammit!!'
+        system 'jammit -o _site/assets -c _assets.yml'
       end
     end
   end

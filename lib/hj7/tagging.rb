@@ -1,7 +1,7 @@
 module HJ7::Tagging
 end
 
-require "jekyll/tagging"
+require 'jekyll/tagging'
 
 module Jekyll
   module Filters
