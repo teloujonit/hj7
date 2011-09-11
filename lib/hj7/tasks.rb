@@ -11,11 +11,6 @@ task :default => :generate_site do
   puts ">>> Site Generating Complete! <<<\n\n"
 end
 
-desc "generate and deploy website via rsync"
-task :deploy => :default do
-  system "jekyll-s3"
-end
-
 desc "remove files in output directory"
 task :clean do
   puts ">>> Removing output <<<"
