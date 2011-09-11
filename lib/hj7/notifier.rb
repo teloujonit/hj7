@@ -82,21 +82,21 @@ module HJ7::Notifier
     end
   rescue LoadError
     turn_off
-    puts "Please install growl or growl_notify gem for Mac OS X notification support and add it to your Gemfile"
+    puts 'Please install growl or growl_notify gem for Mac OS X notification support and add it to your Gemfile'
   end
 
   def self.require_libnotify
     require 'libnotify'
   rescue LoadError
     turn_off
-    puts "Please install libnotify gem for Linux notification support and add it to your Gemfile"
+    puts 'Please install libnotify gem for Linux notification support and add it to your Gemfile'
   end
 
   def self.require_rbnotifu
     require 'rb-notifu'
   rescue LoadError
     turn_off
-    puts "Please install rb-notifu gem for Windows notification support and add it to your Gemfile"
+    puts 'Please install rb-notifu gem for Windows notification support and add it to your Gemfile'
   end
 end
 HJ7::Notifier.turn_on
@@ -114,3 +114,4 @@ module Jekyll
     end
   end
 end
+:

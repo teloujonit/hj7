@@ -1,4 +1,5 @@
 require 'hj7/jammit'
+require 'hj7/redcarpet_converter'
 require 'hj7/notifier'
 require 'hj7/compass'
 require 'hj7/archive'

@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.add_dependency "jammit"
   s.add_dependency "coffee-script"
   s.add_dependency "jekyll-tagging"
+  s.add_dependency "redcarpet", '~> 2.0.0b3'
+  s.add_dependency "albino"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

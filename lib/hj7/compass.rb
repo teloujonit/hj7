@@ -14,19 +14,18 @@ module HJ7::Compass
       '.css'
     end
 
+    def compass
+      # compass = ::Compass::Configuration::Data.new('jekyll', @config['compass']).
+      #   extend(::Compass::Configuration::Defaults).
+      #   extend(::Compass::Configuration::Comments)
+
+      config_file = File.expand_path(@config['compass']['config_file'])
+      @_compass ||= ::Compass.add_project_configuration config_file
+    end
+
     def convert(scss)
       begin
-        config_file = File.expand_path(@config['compass']['config_file'])
-
-        compass = ::Compass.add_project_configuration config_file
-
-        # compass = ::Compass::Configuration::Data.new('jekyll', @config['compass']).
-        #   extend(::Compass::Configuration::Defaults).
-        #   extend(::Compass::Configuration::Comments)
-
-        options = compass.to_sass_engine_options
-
-        ::Sass::Engine.new(scss, options).render
+        ::Sass::Engine.new(scss, compass.to_sass_engine_options).render
       rescue => e
         puts "Sass Exception: #{e.message}"
         puts "Scss: #{scss}"
