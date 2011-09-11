@@ -16,15 +16,17 @@ module HJ7::Archive
     safe true
 
     def generate(site)
-      @layouts = {}
+      if site.config['archive']
+        @layouts = {}
 
-      @layouts[:yearly]  = site.config['archive']['yearly_page_layout']
-      @layouts[:monthly] = site.config['archive']['monthly_page_layout']
-      @layouts[:daily]   = site.config['archive']['daily_page_layout']
+        @layouts[:yearly]  = site.config['archive']['yearly_page_layout']
+        @layouts[:monthly] = site.config['archive']['monthly_page_layout']
+        @layouts[:daily]   = site.config['archive']['daily_page_layout']
 
-      generate_yearly_archive_pages(site) if @layouts[:yearly]
-      generate_monthly_archive_pages(site) if @layouts[:monthly]
-      generate_daily_archive_pages(site) if @layouts[:daily]
+        generate_yearly_archive_pages(site) if @layouts[:yearly]
+        generate_monthly_archive_pages(site) if @layouts[:monthly]
+        generate_daily_archive_pages(site) if @layouts[:daily]
+      end
     end
 
     protected
