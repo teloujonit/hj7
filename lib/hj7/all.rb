@@ -1,3 +1,4 @@
+require 'hj7'
 require 'hj7/jammit'
 require 'hj7/redcarpet_converter'
 require 'hj7/notifier'
