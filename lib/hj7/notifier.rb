@@ -22,7 +22,7 @@ module HJ7::Notifier
 
   def self.notify(message, options = {})
     if enabled?
-      image = options.delete(:image) || File.expand_path('assets/images/logo_square.png')
+      image = options.delete(:image)
       title = options.delete(:title) || 'Jekyll'
 
       case RbConfig::CONFIG['target_os']
@@ -106,8 +106,15 @@ module Jekyll
     alias :process_without_growl :process
 
     def process
+      if config.has_key?('notifier') and config['notifier'].has_key?('image')
+        image_path = config['notifier']['image']
+        if File.exists?(image_path)
+          image = File.expand_path(image_path)
+        end
+      end
+
       options = {}
-      options[:icon] = File.expand_path(config['notifier_logo']) if config['notifier_logo']
+      options[:icon] = image
       HJ7::Notifier.notify 'Building...', options
       process_without_growl
       HJ7::Notifier.notify 'Build complete', options

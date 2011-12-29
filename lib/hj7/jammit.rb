@@ -18,12 +18,11 @@ end
 module HJ7::Jammit
   module Tags
     class AssetTag < Liquid::Tag
-      CONFIG = YAML.load_file("_assets.yml")
-
       def initialize(tag_name, name, kind, tokens)
         super tag_name, name, tokens
         @name   = name.to_s.strip
         @kind   = kind.to_s
+        @config = File.exists?("_assets.yml") ? YAML.load_file("_assets.yml") : {}
       end
 
       def render(context)
@@ -36,13 +35,15 @@ module HJ7::Jammit
         end
       end
 
+      protected
+
       def name_with_ext
         "#{@name}.#{@ext}"
       end
 
       def assets_for_name
-        if CONFIG[@asset_type].include?(@name)
-          CONFIG[@asset_type][@name].map do |asset|
+        if @config[@asset_type].include?(@name)
+          @config[@asset_type][@name].map do |asset|
             asset.gsub(/_site\/assets\/(stylesheets|javascripts)\//, "")
           end
         else
@@ -59,6 +60,8 @@ module HJ7::Jammit
         super tag_name, name, "js", tokens
       end
 
+      protected
+
       def markup(src)
         %{<script src="#{src}" type="text/javascript"></script>}.to_s
       end
@@ -72,6 +75,8 @@ module HJ7::Jammit
         @asset_type = "stylesheets"
         super tag_name, name, "css", tokens
       end
+
+      protected
 
       def markup(src)
         %{<link href="#{src}" media="screen" rel="stylesheet" type="text/css" />}.to_s
