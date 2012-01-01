@@ -8,7 +8,7 @@ module Jekyll
         config_file = config["tidy"]["config_file"]
         if File.exists?(config_file)
           puts "tidy!!"
-          system "find _site -name \"*.html\" -exec tidy -config #{config_file} {} \;"
+          system "find _site -name \"*.html\" -exec tidy -config #{config_file} {} \\;"
         end
       end
     end
