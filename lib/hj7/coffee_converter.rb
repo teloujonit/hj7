@@ -1,5 +1,5 @@
-require 'jekyll'
-require 'coffee-script'
+require "jekyll"
+require "coffee-script"
 
 module HJ7::Coffee
   class CoffeeConverter < Jekyll::Converter
@@ -11,14 +11,14 @@ module HJ7::Coffee
     end
 
     def output_ext(ext)
-      '.js'
+      ".js"
     end
 
     def convert(content)
       begin
         CoffeeScript.compile content
       rescue StandardError => e
-        puts 'CoffeeScript error:' + e.message
+        puts "CoffeeScript error:" + e.message
       end
     end
   end

@@ -1,5 +1,5 @@
-require 'jekyll'
-require 'compass'
+require "jekyll"
+require "compass"
 
 module HJ7::Compass
   class CompassConverter < Jekyll::Converter
@@ -11,20 +11,18 @@ module HJ7::Compass
     end
 
     def output_ext(ext)
-      '.css'
+      ".css"
     end
 
     def compass
-      # if @_compass.nil?
-        # if @config.has_key?('compass') and @config['compass'].has_key?('config_file')
-          config_file = File.expand_path(@config['compass']['config_file'])
-          @_compass ||= ::Compass.add_project_configuration config_file
-        # else
-      #     @_compass ||= ::Compass::Configuration::Data.new('jekyll', @config['compass']).
-      #       extend(::Compass::Configuration::Defaults).
-      #       extend(::Compass::Configuration::Comments)
-      #   end
-      # end
+      if @config.has_key?("compass") and @config["compass"].has_key?("config_file")
+        config_file = File.expand_path(@config["compass"]["config_file"])
+        @_compass ||= ::Compass.add_project_configuration config_file
+      else
+        @_compass ||= ::Compass::Configuration::Data.new("jekyll", @config["compass"]).
+          extend(::Compass::Configuration::Defaults).
+          extend(::Compass::Configuration::Comments)
+      end
       @_compass
     end
 

@@ -1,7 +1,7 @@
 module HJ7::Archive
   class ArchivePage < Jekyll::Page
     def initialize(site, base, dir, name, data = {})
-      self.content = data.delete('content') || ''
+      self.content = data.delete("content") || ""
       self.data    = data
 
       super(site, base, dir, name)
@@ -16,12 +16,12 @@ module HJ7::Archive
     safe true
 
     def generate(site)
-      if site.config['archive']
+      if site.config["archive"]
         @layouts = {}
 
-        @layouts[:yearly]  = site.config['archive']['yearly_page_layout']
-        @layouts[:monthly] = site.config['archive']['monthly_page_layout']
-        @layouts[:daily]   = site.config['archive']['daily_page_layout']
+        @layouts[:yearly]  = site.config["archive"]["yearly_page_layout"]
+        @layouts[:monthly] = site.config["archive"]["monthly_page_layout"]
+        @layouts[:daily]   = site.config["archive"]["daily_page_layout"]
 
         generate_yearly_archive_pages(site) if @layouts[:yearly]
         generate_monthly_archive_pages(site) if @layouts[:monthly]
@@ -32,7 +32,7 @@ module HJ7::Archive
     protected
 
     def generate_yearly_archive_pages(site)
-      collate_posts(site.posts, '%Y').each {|key, posts|
+      collate_posts(site.posts, "%Y").each {|key, posts|
         puts "Generating year archive for #{key}"
         site.pages << new_yearly_page(site, key, posts.sort.reverse)
       }
@@ -41,47 +41,47 @@ module HJ7::Archive
     def new_yearly_page(site, key, posts)
       year = key
 
-      ArchivePage.new(site, site.source, '/', "#{year}.html", {
-        'layout' => @layouts[:yearly],
-        'year'   => year,
-        'posts'  => posts
+      ArchivePage.new(site, site.source, "/", "#{year}.html", {
+        "layout" => @layouts[:yearly],
+        "year"   => year,
+        "posts"  => posts
       })
     end
 
     def generate_monthly_archive_pages(site)
-      collate_posts(site.posts, '%Y/%m').each do |key, posts|
+      collate_posts(site.posts, "%Y/%m").each do |key, posts|
         puts "Generating monthly archive for #{key}"
         site.pages << new_monthly_page(site, key, posts.sort.reverse)
       end
     end
 
     def new_monthly_page(site, key, posts)
-      year, month = key.split('/')
+      year, month = key.split("/")
 
       ArchivePage.new(site, site.source, "#{year}/", "#{month}.html", {
-        'layout' => @layouts[:monthly],
-        'year'   => year,
-        'month'  => month,
-        'posts'  => posts
+        "layout" => @layouts[:monthly],
+        "year"   => year,
+        "month"  => month,
+        "posts"  => posts
       })
     end
 
     def generate_daily_archive_pages(site)
-      collate_posts(site.posts, '%Y/%m/%d').each {|key, posts|
+      collate_posts(site.posts, "%Y/%m/%d").each {|key, posts|
         puts "Generating daily archive for #{key}"
         site.pages << new_daily_page(site, key, posts.sort.reverse)
       }
     end
 
     def new_daily_page(site, key, posts)
-      year, month, day = key.split('/')
+      year, month, day = key.split("/")
 
       ArchivePage.new(site, site.source, "#{year}/#{month}", "#{day}.html", {
-        'layout' => @layouts[:daily],
-        'year'   => year,
-        'month'  => month,
-        'day'    => day,
-        'posts'  => posts
+        "layout" => @layouts[:daily],
+        "year"   => year,
+        "month"  => month,
+        "day"    => day,
+        "posts"  => posts
       })
     end
 

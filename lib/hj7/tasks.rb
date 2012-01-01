@@ -20,23 +20,23 @@ end
 desc "Generate site files only"
 task :generate_site => :clean do
   puts "\n\n>>> Generating site files <<<"
-  ENV['JEKYLL_ENV'] = 'production'
+  ENV["JEKYLL_ENV"] = "production"
   system "jekyll --no-server --no-auto --no-future"
 end
 
-# usage rake post[my-new-post] or rake post['my new post'] or rake post (defaults to "new-post")
+# usage rake post[my-new-post] or rake post["my new post"] or rake post (defaults to "new-post")
 desc "Begin a new post in _posts"
 task :post, :filename do |t, args|
-  args.with_defaults(:filename => 'new-post')
-  time  = Time.now.strftime('%Y-%m-%d_%H-%M')
+  args.with_defaults(:filename => "new-post")
+  time  = Time.now.strftime("%Y-%m-%d_%H-%M")
   system "touch _posts/#{time}-#{args.filename}.md"
 end
 
-# usage rake post[my-new-post] or rake post['my new post'] or rake post (defaults to "new-post")
+# usage rake post[my-new-post] or rake post["my new post"] or rake post (defaults to "new-post")
 desc "Begin a new post in _drafts"
 task :draft, :filename do |t, args|
-  args.with_defaults(:filename => 'new-post')
-  time  = Time.now.strftime('%Y-%m-%d_%H-%M')
+  args.with_defaults(:filename => "new-post")
+  time  = Time.now.strftime("%Y-%m-%d_%H-%M")
   system "touch _drafts/#{time}-#{args.filename}.md"
 end
 
@@ -50,21 +50,21 @@ task :watch do
   system "bundle exec jekyll"
 end
 
-desc 'generate and deploy website via fog'
+desc "generate and deploy website via fog"
 task :deploy => :default do
-  puts '>>> DEPLOYING SITE <<<'
+  puts ">>> DEPLOYING SITE <<<"
 
-  configs = YAML::load_file('_fog.yml')
+  configs = YAML::load_file("_fog.yml")
 
-  src    = File.expand_path('_site')
+  src    = File.expand_path("_site")
   bucket = configs.delete(:bucket) || configs.delete(:bucket_name)
   path   = nil
 
-  puts 'Connecting'
+  puts "Connecting"
   connection = ::Fog::Storage.new(configs)
 
   # Get bucket
-  puts 'Getting bucket'
+  puts "Getting bucket"
   begin
     directory = connection.directories.get(bucket)
   rescue ::Excon::Errors::NotFound
@@ -87,15 +87,15 @@ task :deploy => :default do
   end
 
   # Delete all the files in the bucket
-  puts 'Removing remote files'
+  puts "Removing remote files"
   files.all.each do |file|
     file.destroy
   end
 
   # Upload all the files in the output folder to the clouds
-  puts 'Uploading local files'
+  puts "Uploading local files"
   FileUtils.cd(src) do
-    files = Dir['**/*'].select { |f| File.file?(f) }
+    files = Dir["**/*"].select { |f| File.file?(f) }
     files.each do |file_path|
       directory.files.create(
         key: "#{path}#{file_path}",
@@ -104,5 +104,5 @@ task :deploy => :default do
     end
   end
 
-  puts 'Done!'
+  puts "Done!"
 end

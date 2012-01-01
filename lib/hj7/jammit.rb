@@ -1,5 +1,5 @@
-require 'jekyll'
-require 'jammit'
+require "jekyll"
+require "jammit"
 
 module Jekyll
   class Site
@@ -7,9 +7,21 @@ module Jekyll
 
     def process
       process_without_jammit
-      if Jekyll::ENV == 'production'
-        puts 'jammit!!'
-        system 'jammit -o _site/assets -c _assets.yml'
+      if Jekyll::ENV == "production"
+        if config.has_key?("jammit") and config["tidy"].has_key?("config_file")
+          config_file = config["jammit"]["config_file"]
+
+          if config["tidy"].has_key?("asset_dir")
+            asset_dir = config["jammit"]["asset_dir"]
+          else
+            asset_dir = "assets"
+          end
+
+          if File.exists?(config_file)
+            puts "jammit!!"
+            system "jammit -o _site/#{asset_dir} -c #{config_file}"
+          end
+        end
       end
     end
   end

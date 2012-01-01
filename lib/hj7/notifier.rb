@@ -1,16 +1,16 @@
-require 'jekyll'
+require "jekyll"
 
 module HJ7::Notifier
-  APPLICATION_NAME = 'Jekyll'
+  APPLICATION_NAME = "Jekyll"
 
   def self.turn_off
-    ENV['JEKYLL_NOTIFY'] = 'false'
+    ENV["JEKYLL_NOTIFY"] = "false"
   end
 
   def self.turn_on
-    ENV['JEKYLL_NOTIFY'] = 'true'
+    ENV["JEKYLL_NOTIFY"] = "true"
 
-    case RbConfig::CONFIG['target_os']
+    case RbConfig::CONFIG["target_os"]
     when /darwin/i
       require_growl
     when /linux/i
@@ -23,9 +23,9 @@ module HJ7::Notifier
   def self.notify(message, options = {})
     if enabled?
       image = options.delete(:image)
-      title = options.delete(:title) || 'Jekyll'
+      title = options.delete(:title) || "Jekyll"
 
-      case RbConfig::CONFIG['target_os']
+      case RbConfig::CONFIG["target_os"]
       when /darwin/i
         notify_mac(title, message, image, options)
       when /linux/i
@@ -37,7 +37,7 @@ module HJ7::Notifier
   end
 
   def self.enabled?
-    ENV['JEKYLL_NOTIFY'] == 'true'
+    ENV["JEKYLL_NOTIFY"] == "true"
   end
 
   protected
@@ -69,7 +69,7 @@ module HJ7::Notifier
 
   def self.require_growl
     begin
-      require 'growl_notify'
+      require "growl_notify"
 
       if GrowlNotify.application_name != APPLICATION_NAME
         GrowlNotify.config do |c|
@@ -78,25 +78,25 @@ module HJ7::Notifier
         end
       end
     rescue LoadError
-      require 'growl'
+      require "growl"
     end
   rescue LoadError
     turn_off
-    puts 'Please install growl or growl_notify gem for Mac OS X notification support and add it to your Gemfile'
+    puts "Please install growl or growl_notify gem for Mac OS X notification support and add it to your Gemfile"
   end
 
   def self.require_libnotify
-    require 'libnotify'
+    require "libnotify"
   rescue LoadError
     turn_off
-    puts 'Please install libnotify gem for Linux notification support and add it to your Gemfile'
+    puts "Please install libnotify gem for Linux notification support and add it to your Gemfile"
   end
 
   def self.require_rbnotifu
-    require 'rb-notifu'
+    require "rb-notifu"
   rescue LoadError
     turn_off
-    puts 'Please install rb-notifu gem for Windows notification support and add it to your Gemfile'
+    puts "Please install rb-notifu gem for Windows notification support and add it to your Gemfile"
   end
 end
 HJ7::Notifier.turn_on
@@ -106,8 +106,8 @@ module Jekyll
     alias :process_without_growl :process
 
     def process
-      if config.has_key?('notifier') and config['notifier'].has_key?('image')
-        image_path = config['notifier']['image']
+      if config.has_key?("notifier") and config["notifier"].has_key?("image")
+        image_path = config["notifier"]["image"]
         if File.exists?(image_path)
           image = File.expand_path(image_path)
         end
@@ -115,9 +115,9 @@ module Jekyll
 
       options = {}
       options[:icon] = image
-      HJ7::Notifier.notify 'Building...', options
+      HJ7::Notifier.notify "Building...", options
       process_without_growl
-      HJ7::Notifier.notify 'Build complete', options
+      HJ7::Notifier.notify "Build complete", options
     end
   end
 end

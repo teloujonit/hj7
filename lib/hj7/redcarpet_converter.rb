@@ -1,7 +1,6 @@
-require 'jekyll'
-require 'redcarpet'
-# require 'pygments'
-require 'albino'
+require "jekyll"
+require "redcarpet"
+require "albino"
 
 module HJ7::RedcarpetConverter
 end
@@ -9,7 +8,6 @@ end
 class HTMLwithPygments < Redcarpet::Render::HTML
   def block_code(code, language)
     Albino.colorize(code, language)
-    # Pygments.highlight(code, lexer: language, formatter: 'html')
   end
 end
 
